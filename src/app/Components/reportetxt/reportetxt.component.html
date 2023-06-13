@@ -1,0 +1,79 @@
+<!-- Contenido de la página /TXTSS -->
+<section id="login_txt">
+    <div class="login_container" id="login_box">
+        <div class="login">
+            <div class="login_box">
+                <div class="container">
+                    <div class="container-form">
+                        <form  [formGroup]="formtxt" (submit)="post_txtss()">
+                            <div class="titulo">
+                                <h3>TXT SS</h3>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="fill" class="campo">
+                                    <mat-select id="empresa" formControlName="empresa">
+                                        <mat-option *ngFor="let empresa of empresas" [value]="empresa.value">
+                                            {{empresa.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                    <mat-label>Empresa</mat-label>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field class="campo">
+                                    <mat-label>Año</mat-label>
+                                    <input matInput placeholder="Ingresa un año" type="text" id="anio" formControlName="anio">
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field class="campo">
+                                    <mat-label>Mes</mat-label>
+                                    <input matInput placeholder="Ingresa un mes" type="text" id="mes" formControlName="mes">
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="fill" class="campo">
+                                    <mat-label>Grupos</mat-label>
+                                    <mat-select id="groups" formControlName="groups" multiple>
+                                        <mat-option *ngFor="let group of groupslist" [disabled]="disableSelect.value" [value]="group">{{group}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="container-button" [hidden]="!disableSelect.value">
+                                <button mat-raised-button color="primary" [disabled]="formtxt.invalid" class="button">Obtener grupos</button>
+                            </div>
+                            <div class="container-button" [hidden]="disableSelect.value">
+                                <button mat-raised-button color="primary" class="button">Procesar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loading" id="loading">
+        <div class="load">
+            <div class="containergif">
+                <div class="message_load">
+                    <h2>Estamos procesando tu solicitud...</h2>
+                </div>
+                <img src="assets\gif\loading.gif" alt="" class="gif">
+            </div>
+        </div>
+    </div>
+    <div class="alert_div" id="alert">
+        <div class="alerta">
+            <div class="image_back">
+                <div class="containeralert">
+                    <div class="message_alert">
+                        <div class="icon_alert">
+                            <i class="bi bi-exclamation-circle"></i>
+                        </div>
+                        <h2 class="message_alerta">El reporte se encuentra vacío, por favor válida la información ingresada.</h2>
+                        <button mat-raised-button color="primary" class="boton_alert" (click)="regresar()">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
