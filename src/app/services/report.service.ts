@@ -21,4 +21,9 @@ export class ReportService {
   get_report(url:string){
     return this.http.get(url, {responseType: 'blob'});
   }
+  //ObtenerEmpresas
+  post_empresas(url:string, body:object){
+    return this.http.post(url, body, {responseType: 'json'});
+  }
+  
 }

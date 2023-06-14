@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -18,6 +18,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReporteLiquidacionesComponent } from './Components/reporte-liquidaciones/reporte-liquidaciones.component';
+import { ReporteReLiquidacionesComponent } from './Components/reporte-re-liquidaciones/reporte-re-liquidaciones.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FooterComponent,
     HomeComponent,
     ReportehorizontalComponent,
-    ReportetxtComponent
+    ReportetxtComponent,
+    ReporteLiquidacionesComponent,
+    ReporteReLiquidacionesComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +43,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatButtonModule,
     BrowserAnimationsModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],
   bootstrap: [AppComponent]
 })
