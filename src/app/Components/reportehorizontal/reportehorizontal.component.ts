@@ -10,8 +10,8 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './reportehorizontal.component.html',
   styleUrls: ['./reportehorizontal.component.css']
 })
-export class ReportehorizontalComponent implements OnInit{
 
+export class ReportehorizontalComponent implements OnInit{
   formreport!: FormGroup;
   RespuestaJson: any;
   Modo : string = "";
@@ -29,17 +29,17 @@ export class ReportehorizontalComponent implements OnInit{
   // url_1 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar';
   // url_2 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar2';
   // url_3 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar3';
+  
   constructor(private reportservice: ReportService,  private formbuilder: FormBuilder, private dataservice: DataService, private title: Title){
     title.setTitle('Reporte Horizontal');
   }
+  
   post_reporte(){ 
     const login = document.getElementById("container_all");
     const loadinggif = document.getElementById("loading");
     const alert_message = document.getElementById("alert");
-
     if (login != undefined){login.style.display = "none";}
     if (loadinggif != undefined){loadinggif.style.display = "block";}
-
     this.reportservice.post_reporte(this.url_1, {Data: (this.formreport.value)}).subscribe
     (
       (data: object) => 
@@ -121,18 +121,21 @@ export class ReportehorizontalComponent implements OnInit{
     this.formreport.get('idperiodo2')?.reset();
     this.formreport.get('idperiodo3')?.reset();
   }
+  
   regresar(){
     const alert_message = document.getElementById("alert");
     const login = document.getElementById("container_all");
     if (alert_message != undefined){alert_message.style.display = "none";}
     if (login != undefined){login.style.display = "block";}
   }
+  
   ObtenerLocalStorage(){
     let Mode = localStorage.getItem("Mode");
     const mode = document.getElementById("login");
     if(Mode == "dark"){mode?.classList.remove('mode');}
     else{mode?.classList.add('mode');}
   }
+  
   ngOnInit(): void {
     this.formreport = this.formbuilder.group({
       idproceso:['Agrupar ID proceso',Validators.required],
@@ -148,6 +151,7 @@ export class ReportehorizontalComponent implements OnInit{
       if(this.Modo == 'dark'){mode?.classList.remove('mode');}
     })
   }
+  
   enable_input_2(){
     let input_one = this.formreport.get('idperiodo')?.value;
     let tamano_one : number = 0;
@@ -167,6 +171,7 @@ export class ReportehorizontalComponent implements OnInit{
       this.formreport.get('idperiodo3')?.reset();
     }
   }
+  
   enable_input_3(){
     let input_two = this.formreport.get('idperiodo2')?.value;
     let tamano_two : Number = 0;

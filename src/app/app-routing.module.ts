@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './Components/home/home.component';
 import { ReportehorizontalComponent } from './Components/reportehorizontal/reportehorizontal.component';
 import { ReportetxtComponent } from './Components/reportetxt/reportetxt.component';
-//Reporte liquidaciones y reliquidaciones
 import { ReporteLiquidacionesComponent } from "./Components/reporte-liquidaciones/reporte-liquidaciones.component";
 import { ReporteReLiquidacionesComponent } from "./Components/reporte-re-liquidaciones/reporte-re-liquidaciones.component";
 const routes: Routes = [

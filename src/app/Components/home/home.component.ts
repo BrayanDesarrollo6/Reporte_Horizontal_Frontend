@@ -9,23 +9,37 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit{
   Modo : string = "";
+  
   constructor(private dataservices: ReportService, private dataservice: DataService, private title: Title, private router: Router){
     title.setTitle('HQ5 S.A.S');  
   }
+  
   reporth(){
     this.router.navigate(['reportehorizontal']);
   }
+
+  reportlq(){
+    this.router.navigate(['reporteLiquidaciones']);
+  }
+
+  reportrelq(){
+    this.router.navigate(['reporteReLiquidaciones']);
+  }
+  
   reportt(){
     this.router.navigate(['reportetxt']);
   }
+  
   ObtenerLocalStorage(){
     let Mode = localStorage.getItem("Mode");
     const mode = document.getElementById("container_home");
     if(Mode == "dark"){mode?.classList.remove('mode');}
     else{mode?.classList.add('mode');}
   }
+  
   ngOnInit(): void {
     this.ObtenerLocalStorage();
     this.dataservice.DisparadorModo.subscribe(data =>{

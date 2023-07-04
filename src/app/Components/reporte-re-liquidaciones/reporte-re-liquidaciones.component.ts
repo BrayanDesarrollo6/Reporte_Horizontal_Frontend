@@ -11,6 +11,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   templateUrl: './reporte-re-liquidaciones.component.html',
   styleUrls: ['./reporte-re-liquidaciones.component.css']
 })
+
 export class ReporteReLiquidacionesComponent {
   formreport!: FormGroup;
   RespuestaJson: any;
@@ -26,16 +27,14 @@ export class ReporteReLiquidacionesComponent {
   constructor(private reportservice: ReportService,  private formbuilder: FormBuilder, private dataservice: DataService, private title: Title, private httpService: HttpClient){
     title.setTitle('Reporte Liquidaciones');
   }
-  updateEmpresas(){
-    
+
+  updateEmpresas(){  
     console.log("Actualizando empresas");
     const login = document.getElementById("container_all");
     const loadinggif = document.getElementById("loading");
     const alert_message = document.getElementById("alert");
-
     if (login != undefined){login.style.display = "none";}
     if (loadinggif != undefined){loadinggif.style.display = "block";}
-
     this.reportservice.post_empresas(this.url_7, {Data: "1"}).subscribe
     (
       (data: object) => 
@@ -66,18 +65,15 @@ export class ReporteReLiquidacionesComponent {
       }
     )
   }
-  post_reporte(){ 
-    
+
+  post_reporte(){    
     const login = document.getElementById("container_all");
     const loadinggif = document.getElementById("loading");
     const alert_message = document.getElementById("alert");
-
     let a : any = {Data: (this.formreport.value)};
     console.log(a);
-
     if (login != undefined){login.style.display = "none";}
     if (loadinggif != undefined){loadinggif.style.display = "block";}
-
     this.reportservice.post_lq(this.url_8, {Data: (this.formreport.value)}).subscribe
     (
       (data: object) => 
@@ -105,18 +101,21 @@ export class ReporteReLiquidacionesComponent {
       }
     )
   }
+  
   regresar(){
     const alert_message = document.getElementById("alert");
     const login = document.getElementById("container_all");
     if (alert_message != undefined){alert_message.style.display = "none";}
     if (login != undefined){login.style.display = "block";}
   }
+  
   ObtenerLocalStorage(){
     let Mode = localStorage.getItem("Mode");
     const mode = document.getElementById("login");
     if(Mode == "dark"){mode?.classList.remove('mode');}
     else{mode?.classList.add('mode');}
   }
+  
   ngOnInit(): void {
     this.reportservice.get_empresas(this.url_7).subscribe({
       next: (data: object) => {
@@ -142,6 +141,7 @@ export class ReporteReLiquidacionesComponent {
       if(this.Modo == 'dark'){mode?.classList.remove('mode');}
     })
   }
+  
   enable_input_2(){
     let input_one = this.formreport.get('estados')?.value;
     if(input_one == "Pendiente" || input_one == "")

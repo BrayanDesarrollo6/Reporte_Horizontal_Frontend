@@ -10,25 +10,29 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './reportetxt.component.html',
   styleUrls: ['./reportetxt.component.css']
 })
+
 export class ReportetxtComponent implements OnInit{
   public formtxt!: FormGroup;
-  // url_4 : string = 'https://backcompensaciones.gestionhq5.com.co/procesarTXTSS';
-  url_4 : string = 'http://localhost:4001/procesarTXTSS';
+  disableSelect = new FormControl(true);
   RespuestaJson: any;
+  RespuestaLista : any;
+  Replaces : any;
   Modo : string = "";
+  groupslist: string[] = [];
   empresas: any[] = [
     {value: "HQ5 S.A.S", viewValue: "HQ5 S.A.S"},
     {value: "TECNO GESTION FD S A S", viewValue: "TECNO GESTION FD S A S"},
     {value: "TEMPOENLACE S.A.S", viewValue: "TEMPOENLACE S.A.S"},
     {value: "COOMPHIA SERVICIOS", viewValue: "COOMPHIA SERVICIOS"},
   ];
-  disableSelect = new FormControl(true);
-  RespuestaLista : any;
-  Replaces : any;
-  groupslist: string[] = [];
+  
+  // url_4 : string = 'https://backcompensaciones.gestionhq5.com.co/procesarTXTSS';
+  url_4 : string = 'http://localhost:4001/procesarTXTSS';
+
   constructor(private reportservices: ReportService, private formbuilder: FormBuilder, public dataservice: DataService, private title: Title){
     title.setTitle('Reporte TXTSS');
   }
+  
   post_txtss(){ 
     const login = document.getElementById("login_box");
     const loadinggif = document.getElementById("loading");
@@ -82,18 +86,21 @@ export class ReportetxtComponent implements OnInit{
       }
     )
   }
+  
   regresar(){
     const alert_message = document.getElementById("alert");
     const login = document.getElementById("login_box");
     if (alert_message != undefined){alert_message.style.display = "none";}
     if (login != undefined){login.style.display = "block";}
   }
+  
   ObtenerLocalStorage(){
     let Mode = localStorage.getItem("Mode");
     const mode = document.getElementById("login_txt");
     if(Mode == "dark"){mode?.classList.remove('mode');}
     else{mode?.classList.add('mode');}
   }
+  
   ngOnInit(): void {
     this.formtxt = this.formbuilder.group({
       empresa:['HQ5 S.A.S',Validators.required],
