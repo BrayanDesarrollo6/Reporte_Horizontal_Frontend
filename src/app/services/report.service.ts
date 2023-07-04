@@ -12,18 +12,25 @@ export class ReportService {
   post_reporte(url:string, body:object){
     return this.http.post(url, body, {responseType: 'json'});
   }
+  get_report(url:string){
+    return this.http.get(url, {responseType: 'blob'});
+  }
   post_txtss(url:string, body:object){
     return this.http.post(url, body, {responseType: 'json'});
   }
   get_txtss(url:string){
     return this.http.get(url, {responseType: 'blob'});
   }
-  get_report(url:string){
-    return this.http.get(url, {responseType: 'blob'});
-  }
-  //ObtenerEmpresas
   post_empresas(url:string, body:object){
     return this.http.post(url, body, {responseType: 'json'});
   }
-  
+  get_empresas(url:string){
+    return this.http.get(url, {responseType: 'json'});
+  }
+  post_lq(url:string, body:object){
+    return this.http.post(url, body, {responseType: 'json'});
+  }
+  get_lq(url:string){
+    return this.http.get(url, {responseType: 'blob'});
+  }
 }

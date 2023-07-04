@@ -75,6 +75,7 @@ h3{
 .button{
     width: 50%;
     height: 100%;
+    margin: 3px;
 }
 .loading{
     display: none;

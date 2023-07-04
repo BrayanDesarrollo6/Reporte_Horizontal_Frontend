@@ -4,6 +4,8 @@ import { DataService } from 'src/app/services/data.service';
 import { FormBuilder, FormControl, FormControlName, FormGroup, MinLengthValidator, Validators } from '@angular/forms';
 import { saveAs } from 'file-saver-es';
 import { Title } from '@angular/platform-browser';
+import { HttpClient, HttpErrorResponse, JsonpInterceptor } from '@angular/common/http';
+
 @Component({
   selector: 'app-reporte-liquidaciones',
   templateUrl: './reporte-liquidaciones.component.html',
@@ -11,30 +13,103 @@ import { Title } from '@angular/platform-browser';
 })
 export class ReporteLiquidacionesComponent {
   formreport!: FormGroup;
-  formgrupo!: FormGroup;
-  disableSelect = new FormControl(true);
   RespuestaJson: any;
-  RespuestaLista : any;
-  Replaces : any;
-  empresas: string[] = [];
   Modo : string = "";
   message : string = "";
-  // empresas: any[] = [
-  //   {value: "Agrupar ID proceso", viewValue: "Agrupar ID proceso"},
-  //   {value: "Clasificar ID proceso", viewValue: "Clasificar ID proceso"}
-  // ];
-  url_1 : string = 'http://localhost:4001/procesar';
-  url_2 : string = 'http://localhost:4001/procesar2';
-  url_3 : string = 'http://localhost:4001/procesar3';
-  url_4 : string = 'http://localhost:4001/getEmpresas';
-  // url_1 : string = 'http://164.92.109.128:4001/procesar';
-  // url_2 : string = 'http://164.92.109.128:4001/procesar2';
-  // url_3 : string = 'http://164.92.109.128:4001/procesar3';
-  // url_1 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar';
-  // url_2 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar2';
-  // url_3 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar3';
-  constructor(private reportservice: ReportService,  private formbuilder: FormBuilder, private dataservice: DataService, private title: Title){
-    title.setTitle('Reporte Horizontal');
+  empresas: string[] = [];
+  estadoslist: string[] = [];
+  disableSelect = new FormControl(true);
+
+  url_5 : string = 'http://localhost:4001/procesarlq';
+  url_6 : string = 'http://localhost:4001/getEmpresas';
+
+  constructor(private reportservice: ReportService,  private formbuilder: FormBuilder, private dataservice: DataService, private title: Title, private httpService: HttpClient){
+    title.setTitle('Reporte Liquidaciones');
+  }
+  updateEmpresas(){
+    
+    console.log("Actualizando empresas");
+    const login = document.getElementById("container_all");
+    const loadinggif = document.getElementById("loading");
+    const alert_message = document.getElementById("alert");
+
+    if (login != undefined){login.style.display = "none";}
+    if (loadinggif != undefined){loadinggif.style.display = "block";}
+
+    this.reportservice.post_empresas(this.url_6, {Data: "0"}).subscribe
+    (
+      (data: object) => 
+      {
+        this.RespuestaJson = data;
+        console.log(this.RespuestaJson);
+        if(this.RespuestaJson.process === '0')
+        {
+          this.message = 'El reporte se encuentra vacío, por favor válida la información ingresada.';
+          if (loadinggif != undefined){loadinggif.style.display = "none";}
+          if (alert_message != undefined){alert_message.style.display = "block";}
+        }
+        else if(this.RespuestaJson.process === '1')
+        {
+          if(login != undefined){login.style.display = "block";}
+          if(loadinggif != undefined){loadinggif.style.display = "none";}
+          this.reportservice.get_empresas(this.url_6).subscribe({
+            next: (data: object) => {
+              this.RespuestaJson = data;        
+              this.estadoslist = this.RespuestaJson.Estados.sort();
+              this.empresas = this.RespuestaJson.Empresas.sort();
+            },
+            error: (error: HttpErrorResponse) => {
+              console.log(error.message);
+            }
+          });
+        }
+      }
+    )
+  }
+  post_reporte(){ 
+    
+    const login = document.getElementById("container_all");
+    const loadinggif = document.getElementById("loading");
+    const alert_message = document.getElementById("alert");
+
+    let a : any = {Data: (this.formreport.value)};
+    console.log(a);
+
+    if (login != undefined){login.style.display = "none";}
+    if (loadinggif != undefined){loadinggif.style.display = "block";}
+
+    this.reportservice.post_lq(this.url_5, {Data: (this.formreport.value)}).subscribe
+    (
+      (data: object) => 
+      {
+        this.RespuestaJson = data;
+        if(this.RespuestaJson.process === '1')
+        {
+          this.reportservice.get_txtss(this.url_5).subscribe
+          (
+            (data: Blob) => 
+            {
+              if (login != undefined){login.style.display = "block";}
+              if (loadinggif != undefined){loadinggif.style.display = "none";}
+              let downloadurl = window.URL.createObjectURL(data);
+              saveAs(downloadurl, this.RespuestaJson.result);
+            }
+          )
+        }
+        else
+        {
+          this.message = 'El reporte se encuentra vacío, por favor válida la información ingresada.';
+          if (loadinggif != undefined){loadinggif.style.display = "none";}
+          if (alert_message != undefined){alert_message.style.display = "block";}
+        }
+      }
+    )
+  }
+  regresar(){
+    const alert_message = document.getElementById("alert");
+    const login = document.getElementById("container_all");
+    if (alert_message != undefined){alert_message.style.display = "none";}
+    if (login != undefined){login.style.display = "block";}
   }
   ObtenerLocalStorage(){
     let Mode = localStorage.getItem("Mode");
@@ -43,8 +118,21 @@ export class ReporteLiquidacionesComponent {
     else{mode?.classList.add('mode');}
   }
   ngOnInit(): void {
+    this.reportservice.get_empresas(this.url_6).subscribe({
+      next: (data: object) => {
+        this.RespuestaJson = data;        
+        this.estadoslist = this.RespuestaJson.Estados.sort();
+        this.empresas = this.RespuestaJson.Empresas.sort();
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error.message);
+      }
+    });
     this.formreport = this.formbuilder.group({
-      empresa:[''],
+      empresa:['',Validators.required],
+      estados:['',Validators.required],
+      anio: new FormControl({value:'', disabled: true}),
+      mes: new FormControl({value:'', disabled: true}),
     });
     this.ObtenerLocalStorage();
     this.dataservice.DisparadorModo.subscribe(data =>{
@@ -54,24 +142,17 @@ export class ReporteLiquidacionesComponent {
       if(this.Modo == 'dark'){mode?.classList.remove('mode');}
     })
   }
-  postReporteReliquidaciones(){
-    //CONSULTAR EMPRESAS
-    this.reportservice.post_empresas(this.url_4,{Data: "0"}).subscribe(
-      (data: object) => 
-      {
-        this.RespuestaJson = data;
-        console.log(data)
-        if(this.RespuestaJson.process === '2')
-        {
-          this.RespuestaLista = this.RespuestaJson.result.replace('[', '');
-          this.RespuestaLista = this.RespuestaLista.replace(']', '');
-          this.Replaces = /'/g;
-          this.RespuestaLista = this.RespuestaLista.replace(this.Replaces, "");
-          this.RespuestaLista = this.RespuestaLista.split(',');
-          this.empresas = [];
-          for (let Elemento of this.RespuestaLista){this.empresas.push(Elemento);}
-        }
-      }
-    )
+  enable_input_2(){
+    let input_one = this.formreport.get('estados')?.value;
+    if(input_one == "Pendiente" || input_one == "")
+    {
+      this.formreport.get('anio')?.disable();
+      this.formreport.get('mes')?.disable();
+    }
+    else
+    {
+      this.formreport.get('anio')?.enable();
+      this.formreport.get('mes')?.enable();
+    }
   }
 }
