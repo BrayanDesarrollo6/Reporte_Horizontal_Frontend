@@ -23,6 +23,8 @@ export class ReporteReLiquidacionesComponent {
 
   url_7 : string = 'http://localhost:4001/getEmpresasrelq';
   url_8 : string = 'http://localhost:4001/procesarrelq';
+  // url_7 : string = 'https://backcompensaciones.gestionhq5.com.co/getEmpresasrelq';
+  // url_8 : string = 'https://backcompensaciones.gestionhq5.com.co/procesarrelq';
 
   constructor(private reportservice: ReportService,  private formbuilder: FormBuilder, private dataservice: DataService, private title: Title, private httpService: HttpClient){
     title.setTitle('Reporte Liquidaciones');

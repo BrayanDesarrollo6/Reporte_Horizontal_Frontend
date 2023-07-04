@@ -26,8 +26,8 @@ export class ReportetxtComponent implements OnInit{
     {value: "COOMPHIA SERVICIOS", viewValue: "COOMPHIA SERVICIOS"},
   ];
   
-  // url_4 : string = 'https://backcompensaciones.gestionhq5.com.co/procesarTXTSS';
   url_4 : string = 'http://localhost:4001/procesarTXTSS';
+  // url_4 : string = 'https://backcompensaciones.gestionhq5.com.co/procesarTXTSS';
 
   constructor(private reportservices: ReportService, private formbuilder: FormBuilder, public dataservice: DataService, private title: Title){
     title.setTitle('Reporte TXTSS');
