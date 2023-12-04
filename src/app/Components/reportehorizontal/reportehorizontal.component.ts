@@ -20,15 +20,15 @@ export class ReportehorizontalComponent implements OnInit{
     {value: "Agrupar ID proceso", viewValue: "Agrupar ID proceso"},
     {value: "Clasificar ID proceso", viewValue: "Clasificar ID proceso"}
   ];
-  url_1 : string = 'http://localhost:4001/procesar';
-  url_2 : string = 'http://localhost:4001/procesar2';
-  url_3 : string = 'http://localhost:4001/procesar3';
+  // url_1 : string = 'http://localhost:4001/procesar';
+  // url_2 : string = 'http://localhost:4001/procesar2';
+  // url_3 : string = 'http://localhost:4001/procesar3';
   // url_1 : string = 'http://164.92.109.128:4001/procesar';
   // url_2 : string = 'http://164.92.109.128:4001/procesar2';
   // url_3 : string = 'http://164.92.109.128:4001/procesar3';
-  // url_1 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar';
-  // url_2 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar2';
-  // url_3 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar3';
+  url_1 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar';
+  url_2 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar2';
+  url_3 : string = 'https://backcompensaciones.gestionhq5.com.co/procesar3';
   
   constructor(private reportservice: ReportService,  private formbuilder: FormBuilder, private dataservice: DataService, private title: Title){
     title.setTitle('Reporte Horizontal');

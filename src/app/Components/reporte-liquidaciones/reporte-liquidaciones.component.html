@@ -1,4 +1,3 @@
-<!-- Contenido de la página /ReporteLiquidaciones -->
 <section id="login">
     <div class="container_all" id="container_all">
         <div class="login_container">
@@ -23,8 +22,8 @@
                                 <div>
                                     <mat-form-field appearance="fill" class="campo">
                                         <mat-label>Estado</mat-label>
-                                        <mat-select id="estados" formControlName="estados" (ngModelChange)="enable_input_2()">
-                                            <mat-option *ngFor="let estado of estadoslist" [value]="estado" >
+                                        <mat-select id="estados" formControlName="estados" multiple (ngModelChange)="enable_input_2()">
+                                            <mat-option *ngFor="let estado of estadoslist" [value]="estado" [disabled]="isOpcionDeshabilitada(estado)">
                                                 {{estado}}
                                             </mat-option>
                                         </mat-select>
