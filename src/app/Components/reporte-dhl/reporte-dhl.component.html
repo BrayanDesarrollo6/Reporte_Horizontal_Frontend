@@ -1,0 +1,64 @@
+<!-- Contenido de la página /ReporteHorizontal -->
+<section id="login">
+    <div class="container_all" id="container_all">
+        <div class="login_container">
+            <div class="login">
+                <div class="login_box">
+                    <div class="container">
+                        <div class="container-form">
+                            <form [formGroup]="formreport" (submit)="post_reporte()">
+                                <div class="titulo">
+                                    <h3>REPORTE NÓMINA DHL</h3>
+                                </div>
+                                <div>
+                                    <mat-form-field appearance="fill" class="campo">
+                                        <mat-select id="idproceso" formControlName="idproceso">
+                                            <mat-option *ngFor="let idproceso of idprocesos" [value]="idproceso.value">
+                                                {{idproceso.viewValue}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-label>ID Proceso</mat-label>
+                                    </mat-form-field>
+                                </div>
+                                <div>
+                                    <mat-form-field class="campo">
+                                        <mat-label>ID Periodo</mat-label>
+                                        <input matInput placeholder="Ingresa un ID Periodo" type="text" id="idperiodo" formControlName="idperiodo" (ngModelChange)="enable_input_2()">
+                                    </mat-form-field>
+                                </div>
+                                <div class="container-button">
+                                    <button mat-raised-button color="primary" [disabled]="formreport.invalid" class="button">Procesar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loading" id="loading">
+        <div class="load">
+            <div class="containergif">
+                <div class="message_load">
+                    <h2>Estamos procesando tu solicitud...</h2>
+                </div>
+                <img src="assets\gif\loading.gif" alt="" class="gif"> 
+            </div>
+        </div>
+    </div>
+    <div class="alert_div" id="alert">
+        <div class="alerta">
+            <div class="image_back">
+                <div class="containeralert">
+                    <div class="message_alert">
+                        <div class="icon_alert">
+                            <i class="bi bi-exclamation-circle"></i>
+                        </div>
+                        <h2 class="message_alerta">{{message}}</h2>
+                        <button mat-raised-button color="primary" class="boton_alert" (click)="regresar()">Volver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

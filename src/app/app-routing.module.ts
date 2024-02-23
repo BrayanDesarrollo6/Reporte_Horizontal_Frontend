@@ -5,6 +5,7 @@ import { ReportehorizontalComponent } from './Components/reportehorizontal/repor
 import { ReportetxtComponent } from './Components/reportetxt/reportetxt.component';
 import { ReporteLiquidacionesComponent } from "./Components/reporte-liquidaciones/reporte-liquidaciones.component";
 import { ReporteReLiquidacionesComponent } from "./Components/reporte-re-liquidaciones/reporte-re-liquidaciones.component";
+import { ReporteDHLComponent } from './Components/reporte-dhl/reporte-dhl.component';
 const routes: Routes = [
   { 
     path: '', component: HomeComponent 
@@ -14,6 +15,9 @@ const routes: Routes = [
   },
   { 
     path: 'reportehorizontal', component: ReportehorizontalComponent 
+  },
+  { 
+    path: 'reportehorizontaldhl', component: ReporteDHLComponent 
   },
   { 
     path: 'reporteLiquidaciones', component: ReporteLiquidacionesComponent

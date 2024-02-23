@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReporteLiquidacionesComponent } from './Components/reporte-liquidaciones/reporte-liquidaciones.component';
 import { ReporteReLiquidacionesComponent } from './Components/reporte-re-liquidaciones/reporte-re-liquidaciones.component';
+import { ReporteDHLComponent } from './Components/reporte-dhl/reporte-dhl.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ReporteReLiquidacionesComponent } from './Components/reporte-re-liquida
     ReportehorizontalComponent,
     ReportetxtComponent,
     ReporteLiquidacionesComponent,
-    ReporteReLiquidacionesComponent
+    ReporteReLiquidacionesComponent,
+    ReporteDHLComponent
   ],
   imports: [
     BrowserModule,
