@@ -24,6 +24,8 @@ import { ReporteDHLComponent } from './Components/reporte-dhl/reporte-dhl.compon
 import { ReporteNeComponent } from './modules/nomina-electronica/pages/reporte-ne/reporte-ne.component';
 import { DashBoardComponent } from './modules/nomina-electronica/pages/dash-board/dash-board.component';
 import { ProcessNeComponent } from './modules/nomina-electronica/pages/process-ne/process-ne.component';
+import { BarChartComponent } from './Components/bar-chart/bar-chart.component';
+import { LineChartComponent } from './Components/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { ProcessNeComponent } from './modules/nomina-electronica/pages/process-n
     ReporteDHLComponent,
     DashBoardComponent,
     ReporteNeComponent,
-    ProcessNeComponent
+    ProcessNeComponent,
+    BarChartComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,

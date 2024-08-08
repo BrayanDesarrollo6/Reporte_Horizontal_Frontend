@@ -55,7 +55,7 @@ export class ProcessNeComponent implements OnInit{
 
   relanzar(registro:any){
     let tProcess_ = "relanzarProcess"
-    if(registro.type_process == "3"){
+    if(registro.type_process == "1-2" || registro.type_process == "2-2" || registro.type_process == "3-2"){
       tProcess_ = "relanzarIndividual"
     }
     this.neService.relanzar(tProcess_,{id:registro.id}).subscribe(
