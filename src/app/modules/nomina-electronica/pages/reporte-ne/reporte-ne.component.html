@@ -1,0 +1,83 @@
+<div class="container-xl my-3 text-sm-start">
+    <div class="my-3 flex-row">
+        <div class="d-flex">
+            <input class="form-control-sm me-2" type="search" placeholder="Id zoho" aria-label="Search" [(ngModel)]="idZoho">
+            
+            <input class="form-control-sm me-2" type="search" placeholder="Año" aria-label="Search" [(ngModel)]="anio">
+            
+            <input class="form-control-sm me-2" type="search" placeholder="Mes" aria-label="Search" [(ngModel)]="mes">
+            
+            <input class="form-control-sm me-2" type="search" placeholder="Identificacion" aria-label="Search" [(ngModel)]="identificacion">
+            
+            <input class="form-control-sm me-2" type="search" placeholder="Proceso" aria-label="Search" [(ngModel)]="process">
+            
+            <button class="btn btn-outline-success" (click)="onSearch()">Buscar</button>
+
+            <button type="button" class="btn btn-danger" (click)="restart()"> X </button>
+        </div>
+
+    </div>
+    <!-- Content here -->
+    <!-- Paginación -->
+    
+    <nav aria-label="Page navigation example">
+        <span>Total registros: {{this.logs_.length}}</span>
+        <ul class="pagination justify-content-end">
+          <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+            <a class="page-link" tabindex="-1" aria-disabled="true" aria-label="Previous" (click)="prevPage()">Previous</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" aria-label="Next" (click)="nextPage()">Next</a>
+          </li>
+        </ul>
+      </nav>
+        <table class="table table-dark table-hover">
+            
+            <div class="spinner-border text-primary" role="status" *ngIf="wait">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">ID</th>
+                <th scope="col">ID acumulado zoho</th>
+                <th scope="col">Año </th>
+                <th scope="col">Mes</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Identificacion</th>
+                <th scope="col">Devengado</th>
+                <th scope="col">Deduccion</th>
+                <th scope="col">Total</th>
+                <th scope="col">ID aportes</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Id proceso</th>
+                <th scope="col">Validar</th>
+                <th scope="col">Relanzar</th>
+            </tr>
+            </thead>
+            <tbody>
+                <!-- <ng-container *ngFor="let log of logs_"> -->
+                <ng-container *ngFor="let log of currentPageItems; let i = index">
+                    
+                    <tr>
+                        <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
+                        <td>{{log.id}}</td>
+                        <td>{{log.zh_id_acumulado}}</td>
+                        <td>{{log.anio}}</td>
+                        <td>{{log.mes}}</td>
+                        <td>{{log.nombre}}</td>
+                        <td>{{log.identificacion}}</td>
+                        <td>{{log.devengado | currency:'USD':'symbol':'1.2-2'}}</td>
+                        <td>{{log.deduccion | currency:'USD':'symbol':'1.2-2'}}</td>
+                        <td>{{log.comprobante_total | currency:'USD':'symbol':'1.2-2'}}</td>
+                        <td>{{log.idTrack}}</td>
+                        <td>{{log.status}}</td>
+                        <td>{{log.id_process}}</td>
+                        <td><button class="btn btn-outline-success" (click)="consultar(log)">Buscar</button></td>
+                        <td><button class="btn btn-outline-success" (click)="relanzarIndividual(log)" [disabled]="log.status!='failed'">Relanzar</button></td>
+                    </tr>
+                  </ng-container>
+            </tbody>
+      </table>
+  </div>

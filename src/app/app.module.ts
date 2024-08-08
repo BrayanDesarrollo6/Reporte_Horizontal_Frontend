@@ -11,7 +11,7 @@ import { HomeComponent } from './Components/home/home.component';
 import { ReportehorizontalComponent } from './Components/reportehorizontal/reportehorizontal.component';
 import { ReportetxtComponent } from './Components/reportetxt/reportetxt.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,6 +21,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReporteLiquidacionesComponent } from './Components/reporte-liquidaciones/reporte-liquidaciones.component';
 import { ReporteReLiquidacionesComponent } from './Components/reporte-re-liquidaciones/reporte-re-liquidaciones.component';
 import { ReporteDHLComponent } from './Components/reporte-dhl/reporte-dhl.component';
+import { ReporteNeComponent } from './modules/nomina-electronica/pages/reporte-ne/reporte-ne.component';
+import { DashBoardComponent } from './modules/nomina-electronica/pages/dash-board/dash-board.component';
+import { ProcessNeComponent } from './modules/nomina-electronica/pages/process-ne/process-ne.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { ReporteDHLComponent } from './Components/reporte-dhl/reporte-dhl.compon
     ReportetxtComponent,
     ReporteLiquidacionesComponent,
     ReporteReLiquidacionesComponent,
-    ReporteDHLComponent
+    ReporteDHLComponent,
+    DashBoardComponent,
+    ReporteNeComponent,
+    ProcessNeComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +49,8 @@ import { ReporteDHLComponent } from './Components/reporte-dhl/reporte-dhl.compon
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FormsModule 
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],

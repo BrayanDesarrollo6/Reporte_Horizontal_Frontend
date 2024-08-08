@@ -6,6 +6,9 @@ import { ReportetxtComponent } from './Components/reportetxt/reportetxt.componen
 import { ReporteLiquidacionesComponent } from "./Components/reporte-liquidaciones/reporte-liquidaciones.component";
 import { ReporteReLiquidacionesComponent } from "./Components/reporte-re-liquidaciones/reporte-re-liquidaciones.component";
 import { ReporteDHLComponent } from './Components/reporte-dhl/reporte-dhl.component';
+import { DashBoardComponent } from './modules/nomina-electronica/pages/dash-board/dash-board.component';
+import { ReporteNeComponent } from './modules/nomina-electronica/pages/reporte-ne/reporte-ne.component';
+import { ProcessNeComponent } from './modules/nomina-electronica/pages/process-ne/process-ne.component';
 const routes: Routes = [
   { 
     path: '', component: HomeComponent 
@@ -27,7 +30,17 @@ const routes: Routes = [
   },
   { 
     path: 'reportetxt', component: ReportetxtComponent
-  }
+  },
+  // NOMINA ELECTRONICA
+  { 
+    path: 'dashboard-ne', component: DashBoardComponent
+  },
+  { 
+    path: 'report-ne', component: ReporteNeComponent
+  },
+  { 
+    path: 'process-ne', component: ProcessNeComponent
+  },
 ];
 
 @NgModule({
