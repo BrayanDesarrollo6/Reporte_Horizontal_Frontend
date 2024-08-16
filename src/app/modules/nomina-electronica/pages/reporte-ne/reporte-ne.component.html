@@ -1,4 +1,4 @@
-<div class="container-xl my-3 text-sm-start">
+<div class="mx-5 my-3 text-sm-start overflow-y-hidden">
     <div class="my-3 flex-row">
         <div class="d-flex">
             <input class="form-control-sm me-2" type="search" placeholder="Id zoho" aria-label="Search" [(ngModel)]="idZoho">
@@ -10,6 +10,8 @@
             <input class="form-control-sm me-2" type="search" placeholder="Identificacion" aria-label="Search" [(ngModel)]="identificacion">
             
             <input class="form-control-sm me-2" type="search" placeholder="Proceso" aria-label="Search" [(ngModel)]="process">
+
+            <input class="form-control-sm me-2" type="search" placeholder="Estado" aria-label="Search" [(ngModel)]="status">
             
             <button class="btn btn-outline-success" (click)="onSearch()">Buscar</button>
 
@@ -31,13 +33,11 @@
           </li>
         </ul>
       </nav>
+      <div class="spinner-border text-primary" role="status" *ngIf="wait">
+        <span class="visually-hidden">Loading...</span>
+      </div>
         <table class="table table-dark table-hover">
-            
-            <div class="spinner-border text-primary" role="status" *ngIf="wait">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-
-            <thead>
+            <thead class="block z-1 sticky-lg-top">
                 <tr>
                 <th scope="col">#</th>
                 <th scope="col">ID</th>
@@ -57,7 +57,7 @@
                 <th scope="col">Relanzar</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="">
                 <!-- <ng-container *ngFor="let log of logs_"> -->
                 <ng-container *ngFor="let log of currentPageItems; let i = index">
                     
@@ -75,38 +75,41 @@
                         <td>{{log.idTrack}}</td>
                         <td>{{log.status}}</td>
                         <td>{{log.id_process}}</td>
-                        <td>{{log.cune}}</td>
-                        <td><button class="btn btn-outline-success" (click)="consultar(log)">Buscar</button></td>
-                        <td><button class="btn btn-outline-success" (click)="relanzarIndividual(log)" [disabled]="log.status!='failed'">Relanzar</button></td>
+                        <td class="text-break">{{log.cune}}</td>
+                        <td><button class="btn btn-outline-success" (click)="consultar(log)" data-bs-toggle="modal" data-bs-target="#exampleModal">Buscar</button></td>
+                        <td><button class="btn btn-outline-success" (click)="relanzarIndividual(log)" [disabled]="log.status!='failed' || log.status!='rejected'">Relanzar</button></td>
                     </tr>
                   </ng-container>
             </tbody>
       </table>
   </div>
 
-  <!-- Modal -->
-  <div *ngIf="this.openModal" class="modal fade" id="staticBackdrop" >
-    <div  class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">{{this.register.estado}}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">{{this.register.estado}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-title fs-5 fw-semibold">{{this.register.descripcion}}</p>
+        <div>
+
+          <ul *ngIf="this.register.trabajador">
+            <li class="fw-bolder">Tipo de documento: <span class="fw-normal">{{this.register.trabajador[0].tipoDocumento}}</span></li>
+            <li class="fw-bolder">Número de documento: <span class="fw-normal">{{this.register.trabajador[0].numeroDocumento}}</span></li>
+            <li class="fw-bolder">Cune:<span class="fw-normal text-break">{{this.register.trabajador[0].cune}}</span></li>
+            <div *ngIf="this.register.trabajador[0].mensajes">
+              <li class="fw-bolder">Tipo de mensaje: <span class="fw-normal">{{this.register.trabajador[0].mensajes[0].tipo}}</span></li>
+              <li class="fw-bolder">Descripción: <span class="fw-normal">{{this.register.trabajador[0].mensajes[0].descripcion}}</span></li>
+            </div>
+          </ul>
         </div>
-        <div class="modal-body">
-            <div class="spinner-border text-primary" role="status" *ngIf="wait">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            <h3>{{this.register.descripcion}}</h3>
-            <p>Informacion: </p>
-            <ul>
-              <li>Tipo de documento: {{this.register.trabajador[0].tipoDocumento}}</li>
-              <li>Número de documento: {{this.register.trabajador[0].numeroDocumento}}</li>
-              <li>Cune: {{this.register.trabajador[0].cune}}</li>
-            </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="openModal = false">Close</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>

@@ -26,6 +26,7 @@ export class ReporteNeComponent implements OnInit{
   mes: string;
   process: string;
   identificacion: string;
+  status: string;
   //REGITRO PARA EL MODAL
   register:any ={};
   constructor(private neService:NominaElectronicaService){}
@@ -45,12 +46,16 @@ export class ReporteNeComponent implements OnInit{
       )
   }
   consultar(registro:any){
+    this.wait = true
     this.neService.consultar("validate?"+"id="+registro.id).subscribe(
       (data:any)=> 
       {
+        // this.openModal = true
         console.log(data.body)
-        this.register = data.body
-        this.openModal = true
+        // if ('estado' in data.body) {
+          this.register = data.body
+        // }
+        this.wait = false
       }
   )
   }
@@ -106,8 +111,9 @@ export class ReporteNeComponent implements OnInit{
         const matchAnio = Number(this.anio) ? item["anio"] === Number(this.anio) : false;
         const matchMes = Number(this.mes) ? item["mes"] === Number(this.mes) : false;
         const matchProcess = Number(this.process) ? item["id_process"] === Number(this.process) : false;
-  
-        return matchId || matchIdentificacion || matchAnio || matchMes || matchProcess;
+        const matchstatus = this.status ? item["status"] === this.status : false;
+        
+        return matchId || matchIdentificacion || matchAnio || matchMes || matchProcess || matchstatus;
       }
     );
     // Calcular el número total de páginas después de la búsqueda

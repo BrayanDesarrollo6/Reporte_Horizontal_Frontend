@@ -19,6 +19,12 @@ export class ProcessNeComponent implements OnInit{
   pages: number[] = [];
   title =""
   descripcion =""
+  // BUSQUEDA
+  proveedor: string;
+  anio: string;
+  mes: string;
+  id: string;
+  status: string;
 
   constructor(private neService:NominaElectronicaService){}
   
@@ -52,7 +58,33 @@ export class ProcessNeComponent implements OnInit{
   nextPage(): void {
     this.setPage(this.currentPage + 1);
   }
+  restart(){
+    this.currentPageItems = this.process
+    this.setPage(1);
 
+  }
+  onSearch(): void {
+
+    const currentPage = this.currentPage;
+    const pageSize = this.pageSize;
+
+    this.currentPageItems = this.process.filter(
+      (item) => {
+        const matcproveedor = this.proveedor ? item["proveedor_servicio"] === this.proveedor : false;
+        const matchId = Number(this.id) ? item["id"] === Number(this.id) : false;
+        const matchAnio = Number(this.anio) ? item["anio"] === Number(this.anio) : false;
+        const matchMes = Number(this.mes) ? item["mes"] === Number(this.mes) : false;
+        const matchstatus = this.status ? item["status"] === this.status : false;
+        
+        return matcproveedor || matchId || matchAnio || matchMes || matchstatus;
+      }
+    );
+    // Calcular el número total de páginas después de la búsqueda
+    this.totalPages = Math.ceil(this.currentPageItems.length / this.pageSize);
+
+    // Restablecer la paginación utilizando los datos guardados
+    // this.setPage(currentPage);
+  }
   relanzar(registro:any){
     let tProcess_ = "relanzarProcess"
     if(registro.type_process == "1-2" || registro.type_process == "2-2" || registro.type_process == "3-2"){
