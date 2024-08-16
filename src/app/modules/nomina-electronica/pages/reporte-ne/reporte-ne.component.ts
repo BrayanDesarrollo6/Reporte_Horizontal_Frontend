@@ -11,6 +11,7 @@ export class ReporteNeComponent implements OnInit{
   // url_1 : string = 'https://backcompensaciones.gestionhq5.com.co/nominaElectronica/all';
   url_1 : string = 'http://localhost:9090/api/v1/nominaElectronica/';
 
+  openModal = false
   wait = true
   logs_: any[] = [];
   pageSize: number = 20;
@@ -25,7 +26,8 @@ export class ReporteNeComponent implements OnInit{
   mes: string;
   process: string;
   identificacion: string;
-  
+  //REGITRO PARA EL MODAL
+  register:any ={};
   constructor(private neService:NominaElectronicaService){}
 
   // +'?'+"id=3413"
@@ -47,11 +49,13 @@ export class ReporteNeComponent implements OnInit{
       (data:any)=> 
       {
         console.log(data.body)
+        this.register = data.body
+        this.openModal = true
       }
   )
   }
   relanzarIndividual(registro:any){
-    let tProcess_ = "relanzarIndividual"
+    let tProcess_ = "relanzarlogindividual"
     this.neService.relanzar(tProcess_,{id:registro.id}).subscribe(
       (data:any)=> 
       {

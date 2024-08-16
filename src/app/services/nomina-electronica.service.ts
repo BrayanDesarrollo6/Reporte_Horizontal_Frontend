@@ -8,7 +8,8 @@ export class NominaElectronicaService {
 
   constructor(private http : HttpClient) { }
 
-  url : string = 'http://localhost:8072/api/v1/nominaElectronica/';
+  // url : string = 'http://localhost:8072/api/v1/nominaElectronica/';
+  url : string = 'https://backcompensaciones.gestionhq5.com.co/api/v1/nominaElectronica/';
 
   get_logs(params:string){
     return this.http.get(this.url+params);

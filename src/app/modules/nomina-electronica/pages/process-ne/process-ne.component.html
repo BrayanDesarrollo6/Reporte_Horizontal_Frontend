@@ -64,7 +64,7 @@
                         <td>{{process.status}}</td>
                         <td>{{process.type_process}}</td>
                         <td>{{process.idTrack}}</td>
-                        <td><button class="btn btn-success" (click)="relanzar(process)" [disabled]="process.status != 'failed'">Relanzar</button></td>
+                        <td><button class="btn btn-success" (click)="relanzar(process)" [disabled]="process.status != 'calculated' && process.status != 'sending'">Relanzar</button></td>
                         <td><button class="btn btn-primary" (click)="consultar(process)" [disabled]="process.type_process == 2 || process.status === '1' " data-bs-toggle="modal" data-bs-target="#staticBackdrop">Consultar</button></td>
                     </tr>
                   </ng-container>

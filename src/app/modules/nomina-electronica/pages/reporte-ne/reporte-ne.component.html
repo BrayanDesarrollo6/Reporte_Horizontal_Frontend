@@ -52,6 +52,7 @@
                 <th scope="col">ID aportes</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Id proceso</th>
+                <th scope="col">Cune</th>
                 <th scope="col">Validar</th>
                 <th scope="col">Relanzar</th>
             </tr>
@@ -74,10 +75,38 @@
                         <td>{{log.idTrack}}</td>
                         <td>{{log.status}}</td>
                         <td>{{log.id_process}}</td>
+                        <td>{{log.cune}}</td>
                         <td><button class="btn btn-outline-success" (click)="consultar(log)">Buscar</button></td>
                         <td><button class="btn btn-outline-success" (click)="relanzarIndividual(log)" [disabled]="log.status!='failed'">Relanzar</button></td>
                     </tr>
                   </ng-container>
             </tbody>
       </table>
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="this.openModal" class="modal fade" id="staticBackdrop" >
+    <div  class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">{{this.register.estado}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="spinner-border text-primary" role="status" *ngIf="wait">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            <h3>{{this.register.descripcion}}</h3>
+            <p>Informacion: </p>
+            <ul>
+              <li>Tipo de documento: {{this.register.trabajador[0].tipoDocumento}}</li>
+              <li>Número de documento: {{this.register.trabajador[0].numeroDocumento}}</li>
+              <li>Cune: {{this.register.trabajador[0].cune}}</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="openModal = false">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
